@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
           false, //elimina la cinta debug de la esquina superior derecha
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Escolar',
       ),
       home: Container(
         child: PantallaInicio(),

@@ -1,8 +1,11 @@
 //aqui cuando se pulse sobre una tarea se vendra aqui para detallarla
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:funcional_app/models/tareas.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
+import 'package:http/http.dart' as http;
 
 class TareaDetallada extends StatefulWidget {
   final int id;
@@ -17,7 +20,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
   final headers = {"content-type": "application/json;charset=UTF-8"};
   @override
   Widget build(BuildContext context) {
-    final Tarea t1 = widget.tarea;
+    late Tarea t1 = widget.tarea;
     return Scaffold(
       appBar: AppBar(
         title: Text("Tarea ${widget.id}"),
@@ -181,6 +184,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                                   //Llama a tarea_detalle.dart para mostrar la informacion
                                   builder: (context) => ListaTareas()));
                         });*/
+                        showForm(t1);
                       },
                     ),
                   ),
@@ -270,5 +274,58 @@ class _TareaDetalladaState extends State<TareaDetallada> {
         ],
       ),
     );
+  }
+
+  void CompletarTareas() async {
+    /**Crea el objeto que se envia y actualiza el estado de la tarea a completada*/
+
+    //Aqui quiero mostrar un dialogo y luego al aceptar llevarlo a la pagina de lista de tareas actualizando esta
+  }
+  void showForm(Tarea t1) async {
+    var tarea = {"estado": "true", "usuario": t1.usuario.toString()};
+    final url = "http://127.0.0.1:8000/tareas/${t1.idta}/";
+    await http.put(Uri.parse(url),
+        headers: {"content-type": "application/json;charset=UTF-8"},
+        body: json.encode({"estado": true, "usuario": t1.usuario.toString()}));
+    // ignore: use_build_context_synchronously
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Enhorabuena"),
+            content: const Text("Muy bien has completado la tarea"),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  "ACEPTAR",
+                  style: TextStyle(color: Colors.pink),
+                ),
+                onPressed: () {
+                  getTarea(t1);
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  void getTarea(Tarea t1) async {
+    final url = "http://127.0.0.1:8000/tareas/${t1.idta}/";
+    /**Lo convertira en una Uri */
+    final res = await http.get(Uri.parse(url));
+    var tarea = jsonDecode(res.body);
+
+    final tareaFin = Tarea(
+        idta: tarea["idta"],
+        nombre: tarea["nombre"],
+        descripcion: tarea["descripcion"],
+        fecha_inicio: tarea["fecha_inicio"],
+        fecha_fin: tarea["fecha_fin"],
+        estado: tarea["estado"],
+        usuario: tarea["usuario"]);
+    setState(() {
+      tarea = tareaFin;
+    });
+    //Par que los ultimos creados aparezcan los primeros
   }
 }

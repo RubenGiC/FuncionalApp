@@ -12,7 +12,7 @@ class ListaItems extends StatefulWidget {
 
 class _ListaItemsState extends State<ListaItems> {
   //url server
-  final urlItems = Uri.parse("http://127.0.0.1:8000/item/");
+  final urlItems = Uri.parse("http://127.0.0.1:8000/items/");
   //cabecera
   final headers = {"content-type": "application/json;charset=UTF-8"};
   //lista de items
