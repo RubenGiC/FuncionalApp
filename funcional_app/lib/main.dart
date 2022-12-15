@@ -1,46 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:funcional_app/models/categoria.dart';
+import 'package:funcional_app/LoginEstandar.dart';
 
-import 'package:funcional_app/pages/bottom_nav.dart';
-import 'package:funcional_app/pages/rutas.dart';
-
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Material App', home: HomePage());
+    return MaterialApp(
+      title: 'Funcional App',
+      debugShowCheckedModeBanner:
+          false, //elimina la cinta debug de la esquina superior derecha
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Container(
+        child: PantallaInicio(),
+      ),
+    );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class PantallaInicio extends StatefulWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  _PantallaInicioState createState() => _PantallaInicioState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int index = 0;
-  BNNavigator? myBBN;
-  @override
-  void initState() {
-    myBBN = BNNavigator(currentIndex: (i) {
-      setState(() {
-        index = i;
-      });
-    });
-
-    super.initState();
-  }
-
-//Esta seria la barra de navegacion
+class _PantallaInicioState extends State<PantallaInicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: myBBN,
-      body: Routes(index: index),
+      appBar: AppBar(
+        title: Text("TIPO DE INICIO DE SESION",
+            style: TextStyle(color: Colors.black, fontSize: 20)),
+        backgroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.lightBlue,
+      body: Container(
+          child: GridView.builder(
+              itemCount: Menu.length,
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
+              itemBuilder: (context, index) {
+                return Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        //print("click en "+Menu[index].nombre);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => login()));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/" + Menu[index].foto, width: 100),
+                          Text(Menu[index].nombre),
+                        ],
+                      ),
+                    ));
+              })),
     );
   }
 }
