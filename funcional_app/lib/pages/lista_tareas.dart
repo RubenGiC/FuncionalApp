@@ -179,8 +179,16 @@ class _ListaTareasState extends State<ListaTareas> {
       "idta": idta.text,
       "nombre": nombre.text,
       "descripcion": descripcion.text,
-      "fecha_inicio": fecha_inicio.text,
-      "fecha_fin": fecha_fin.text,
+      "fecha_inicio": fecha_inicio.text.substring(6) +
+          '-' +
+          fecha_inicio.text.substring(3, 5) +
+          '-' +
+          fecha_inicio.text.substring(0, 2),
+      "fecha_fin": fecha_fin.text.substring(6) +
+          '-' +
+          fecha_fin.text.substring(3, 5) +
+          '-' +
+          fecha_fin.text.substring(0, 2),
       "estado": estado,
       "usuario": usuario.text
     };

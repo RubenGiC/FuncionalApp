@@ -227,7 +227,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                 ),
                 if (t1.estado) ...[
                   SizedBox(
-                    child: Text("si"),
+                    child: Text("Si"),
                   ),
                 ] else ...[
                   SizedBox(
