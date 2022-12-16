@@ -302,6 +302,8 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                 ),
                 onPressed: () {
                   getTarea(t1);
+                  t1.estado = true;
+                  Navigator.of(context).pop();
                 },
               )
             ],

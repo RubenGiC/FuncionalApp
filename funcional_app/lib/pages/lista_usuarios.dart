@@ -28,6 +28,7 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
   final apellidos = TextEditingController();
   final nombre_usuario = TextEditingController();
   final password = TextEditingController();
+  final aula = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,6 +122,10 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                 TextField(
                   controller: password,
                   decoration: const InputDecoration(hintText: "Contraseña"),
+                ),
+                TextField(
+                  controller: aula,
+                  decoration: const InputDecoration(hintText: "Aula"),
                 )
               ],
             ),
@@ -170,13 +175,15 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
       "nombre": nombre.text,
       "apellidos": apellidos.text,
       "nombre_usuario": nombre_usuario.text,
-      "password": password.text
+      "password": password.text,
+      "aula": aula.text
     };
     await http.post(urlAlumnos, headers: headers, body: jsonEncode(user));
     nombre.clear();
     apellidos.clear();
     nombre_usuario.clear();
     password.clear();
+    aula.clear();
     idus.clear();
     //para volver a actualizar los usuarios y que se actualice la interfaz
     setState(() {
