@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funcional_app/main.dart';
 import 'package:funcional_app/main.dart';
 import 'package:funcional_app/principal.dart';
+import 'package:funcional_app/pages/perfil_usuario.dart';
 
 class login extends StatefulWidget {
   @override
@@ -78,6 +79,6 @@ class _loginState extends State<login> {
 
   void comprobarUsuario() {
     //if()
-    Navigator.push(context, MaterialPageRoute(builder: (_) => HomePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => perfilAlumno()));
   }
 }
