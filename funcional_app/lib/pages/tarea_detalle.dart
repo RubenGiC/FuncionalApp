@@ -361,7 +361,8 @@ class _TareaDetalladaState extends State<TareaDetallada> {
         fecha_inicio: tarea["fecha_inicio"],
         fecha_fin: tarea["fecha_fin"],
         estado: tarea["estado"],
-        usuario: tarea["usuario"]);
+        usuario: tarea["usuario"],
+        corregido: tarea["corregido"]);
     setState(() {
       tarea = tareaFin;
     });

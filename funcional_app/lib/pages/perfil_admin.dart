@@ -4,8 +4,15 @@ import 'package:flutter/rendering.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:funcional_app/pages/lista_items.dart';
 import 'package:funcional_app/pages/lista_usuarios.dart';
+import 'package:funcional_app/pages/tareas_completadas_admin.dart';
+
+import '../LoginEstandar.dart';
+import '../models/profesor.dart';
 
 class perfilAdmin extends StatefulWidget {
+  final Profesor profe;
+
+  const perfilAdmin({super.key, required this.profe});
   @override
   _perfilAdminState createState() => _perfilAdminState();
 }
@@ -13,6 +20,7 @@ class perfilAdmin extends StatefulWidget {
 class _perfilAdminState extends State<perfilAdmin> {
   @override
   Widget build(BuildContext context) {
+    final Profesor p1 = widget.profe;
     return Scaffold(
       appBar: new AppBar(
         title: Text("          INICIO",
@@ -26,10 +34,10 @@ class _perfilAdminState extends State<perfilAdmin> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: new Text(
-                "Ruben ",
+                "${p1.nombre} ",
                 style: new TextStyle(fontSize: 28),
               ),
-              accountEmail: new Text("Ruben1323@gmail.com"),
+              accountEmail: new Text("${p1.apellidos}"),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage("assets/estudiante.png"),
               ),
@@ -63,6 +71,10 @@ class _perfilAdminState extends State<perfilAdmin> {
                 color: Colors.red,
               ),
               title: Text("SALIR", style: new TextStyle(fontSize: 20)),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => login()));
+              },
             ),
           ],
         ),
@@ -79,39 +91,45 @@ class _perfilAdminState extends State<perfilAdmin> {
               tipo: 0,
             ),
             Opciones(
-              title: "Lista de Tareas",
-              icon: Icons.library_books_sharp,
-              stylo: Colors.orange,
-              tipo: 1,
-            ),
-            Opciones(
-              title: "Tareas Realizadas",
-              icon: Icons.check_circle,
-              stylo: Colors.green,
-              tipo: 2,
-            ),
-            Opciones(
-              title: "Inventario",
-              icon: Icons.border_color_rounded,
-              stylo: Colors.brown,
-              tipo: 3,
-            ),
-            Opciones(
               title: "Lista de Usuarios",
               icon: Icons.notifications_active_rounded,
               stylo: Colors.red,
               tipo: 4,
             ),
             Opciones(
+              title: "Lista de Tareas",
+              icon: Icons.library_books_sharp,
+              stylo: Colors.orange,
+              tipo: 1,
+            ),
+            Opciones(
+              title: "Tareas Completadas",
+              icon: Icons.check_circle,
+              stylo: Colors.green,
+              tipo: 2,
+            ),
+            Opciones(
+              title: "Gestion de inventario",
+              icon: Icons.border_color_rounded,
+              stylo: Colors.brown,
+              tipo: 3,
+            ),
+            Opciones(
+              title: "Notificaciones",
+              icon: Icons.notifications_active_rounded,
+              stylo: Colors.grey,
+              tipo: 4,
+            ),
+            Opciones(
               title: "Chat",
               icon: Icons.textsms,
-              stylo: Colors.blue,
+              stylo: Colors.grey,
               tipo: 5,
             ),
             Opciones(
               title: "Menu",
               icon: Icons.flatware,
-              stylo: Colors.orange,
+              stylo: Colors.grey,
               tipo: 6,
             ),
           ],
@@ -162,6 +180,14 @@ class Opciones extends StatelessWidget {
                   MaterialPageRoute(
                     //Llama a tarea_detalle.dart para mostrar la informacion
                     builder: (context) => ListaUsuarios(),
+                  ));
+              break;
+            case 2:
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    //Llama a tarea_detalle.dart para mostrar la informacion
+                    builder: (context) => CompletarTarea(),
                   ));
               break;
           }

@@ -109,9 +109,9 @@ class _loginPictoState extends State<loginPicto> {
                   child: Text("INICIO SESION",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                   onPressed: () {
-                    if (aux == contrasenia)
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => perfilAlumno()));
+                    // if (aux == contrasenia)
+                    //   Navigator.push(context,
+                    //       MaterialPageRoute(builder: (_) => perfilAlumno()));
                   }),
             ),
           ],

@@ -170,7 +170,7 @@ class _UsuarioDetalleState extends State<UsuarioDetalle> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Alumno"),
+            title: const Text("Cambiar contraseña"),
             //Aqui vamos a poner el formulario
             content: Column(
               //Para que no ocupe todo el espacio disponible

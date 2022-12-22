@@ -5,6 +5,7 @@ class Tarea {
   String fecha_inicio;
   String fecha_fin;
   bool estado;
+  bool corregido;
   int usuario;
 
   Tarea(
@@ -14,7 +15,8 @@ class Tarea {
       required this.fecha_inicio,
       required this.fecha_fin,
       required this.estado,
-      required this.usuario});
+      required this.usuario,
+      required this.corregido});
 
   factory Tarea.fromJson(Map json) {
     return Tarea(
@@ -24,6 +26,7 @@ class Tarea {
         fecha_inicio: json["fecha_inicio"],
         fecha_fin: json["fecha_fin"],
         estado: json["estado"],
-        usuario: json["usuario"]);
+        usuario: json["usuario"],
+        corregido: json["corregido"]);
   }
 }

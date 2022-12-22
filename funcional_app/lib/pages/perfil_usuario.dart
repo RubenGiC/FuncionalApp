@@ -1,17 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:funcional_app/models/alumno.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:funcional_app/pages/lista_items.dart';
 
-class perfilAlumno extends StatefulWidget {
+import '../LoginEstandar.dart';
+
+class PerfilAlumno extends StatefulWidget {
+  final Alumno alumno;
+
+  const PerfilAlumno({super.key, required this.alumno});
+
   @override
-  _perfilAlumnoState createState() => _perfilAlumnoState();
+  State<PerfilAlumno> createState() => _PerfilAlumnoState();
 }
 
-class _perfilAlumnoState extends State<perfilAlumno> {
+class _PerfilAlumnoState extends State<PerfilAlumno> {
   @override
   Widget build(BuildContext context) {
+    late Alumno a1 = widget.alumno;
     return Scaffold(
       appBar: new AppBar(
         title: Text("          INICIO",
@@ -25,10 +33,10 @@ class _perfilAlumnoState extends State<perfilAlumno> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: new Text(
-                "MARIA PEREZ",
+                "${a1.nombre}",
                 style: new TextStyle(fontSize: 28),
               ),
-              accountEmail: new Text("mariaperez123@gmail.com"),
+              accountEmail: new Text("${a1.apellidos}"),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage("assets/estudiante.png"),
               ),
@@ -61,7 +69,11 @@ class _perfilAlumnoState extends State<perfilAlumno> {
                 Icons.outbond_outlined,
                 color: Colors.red,
               ),
-              title: Text("SALIR", style: new TextStyle(fontSize: 20)),
+              title: Text("CERRAR SESIOIN", style: new TextStyle(fontSize: 20)),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => login()));
+              },
             ),
           ],
         ),
@@ -84,33 +96,27 @@ class _perfilAlumnoState extends State<perfilAlumno> {
               tipo: 1,
             ),
             Opciones(
-              title: "Tareas Realizadas",
+              title: "HISTORIAL DE TAREAS",
               icon: Icons.check_circle,
               stylo: Colors.green,
               tipo: 2,
             ),
             Opciones(
-              title: "Inventario",
-              icon: Icons.border_color_rounded,
-              stylo: Colors.brown,
-              tipo: 3,
-            ),
-            Opciones(
               title: "Notificaciones",
               icon: Icons.notifications_active_rounded,
-              stylo: Colors.red,
+              stylo: Colors.grey,
               tipo: 4,
             ),
             Opciones(
               title: "Chat",
               icon: Icons.textsms,
-              stylo: Colors.blue,
+              stylo: Colors.grey,
               tipo: 5,
             ),
             Opciones(
               title: "Menu",
               icon: Icons.flatware,
-              stylo: Colors.orange,
+              stylo: Colors.grey,
               tipo: 6,
             ),
           ],

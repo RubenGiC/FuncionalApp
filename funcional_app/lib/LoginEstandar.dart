@@ -9,6 +9,7 @@ import 'package:funcional_app/pages/perfil_usuario.dart';
 import 'package:http/http.dart' as http;
 
 import 'models/alumno.dart';
+import 'models/profesor.dart';
 
 class login extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _loginState extends State<login> {
                     child: Text("Inicio Sesion".toUpperCase(),
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     onPressed: () {
-                      comprobarUsuario();
+                      getAlumnos();
                     }),
               ),
               //SizedBox(height: 100,),
@@ -84,13 +85,49 @@ class _loginState extends State<login> {
     );
   }
 
-  void comprobarUsuario() async {
-    if ((usuario.text == "mariapr") && (contrasena.text == "mariapr") ||
-        (usuario.text == "juanpr") && (contrasena.text == "juanpr")) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => perfilAlumno()));
-    } else if ((usuario.text == "lucas") && (contrasena.text == "lucas")) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => perfilAdmin()));
+  Future<List<Alumno>> getAlumnos() async {
+    /**Lo convertira en una Uri */
+    final res = await http.get(Uri.parse("http://127.0.0.1:8000/alumnos/"));
+    final lista = List.from(jsonDecode(res.body));
+    var encontrado = false;
+    List<Alumno> usuarios = [];
+    lista.forEach((element) {
+      final Alumno alumno = Alumno.fromJson(element);
+      usuarios.add(alumno);
+      if ((usuario.text == alumno.nombre_usuario) &&
+          (contrasena.text == alumno.password)) {
+        encontrado = true;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => PerfilAlumno(
+                      alumno: alumno,
+                    )));
+      } else {
+        encontrado = false;
+      }
+    });
+    //Aqui busca si es profesor, este if es para que no busque si a encontrado un alumno
+    if (!encontrado) {
+      final res2 =
+          await http.get(Uri.parse("http://127.0.0.1:8000/profesores/"));
+      final lista2 = List.from(jsonDecode(res2.body));
+      lista2.forEach((element) {
+        final Profesor profe = Profesor.fromJson(element);
+
+        if ((usuario.text == profe.nombre_usuario) &&
+            (contrasena.text == profe.password)) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => perfilAdmin(
+                        profe: profe,
+                      )));
+        }
+      });
     }
+
+    //Para que los ultimos creados aparezcan los primeros
+    return usuarios.reversed.toList();
   }
 }

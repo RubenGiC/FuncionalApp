@@ -29,12 +29,41 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
   final nombre_usuario = TextEditingController();
   final password = TextEditingController();
   final aula = TextEditingController();
+  final busqueda = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Usuarios'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  alumnos = filtradoUsuarios(busqueda.text);
+                });
+              })
+        ],
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 10, right: 10),
+          child: TextField(
+            controller: busqueda,
+            onEditingComplete: () {
+              filtradoUsuarios(busqueda.text);
+            },
+            style: new TextStyle(color: Colors.white),
+            cursorColor: Colors.white,
+            autofocus: true,
+            decoration: InputDecoration(
+              focusColor: Colors.white,
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+            ),
+          ),
+        ),
       ),
+
       body: FutureBuilder<List<Alumno>>(
         future: alumnos,
         builder: (context, snap) {
@@ -185,5 +214,18 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
     setState(() {
       alumnos = getAlumnos();
     });
+  }
+
+  Future<List<Alumno>> filtradoUsuarios(String text) async {
+    final res = await http.get(Uri.parse("http://127.0.0.1:8000/alumnos/"));
+    final lista = List.from(jsonDecode(res.body));
+    List<Alumno> usuarios = [];
+    lista.forEach((element) {
+      final Alumno user = Alumno.fromJson(element);
+      if (user.nombre.contains(RegExp("${text}"))) {
+        usuarios.add(user);
+      }
+    });
+    return usuarios.toList();
   }
 }
