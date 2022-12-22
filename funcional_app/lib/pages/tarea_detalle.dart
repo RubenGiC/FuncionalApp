@@ -23,14 +23,18 @@ class _TareaDetalladaState extends State<TareaDetallada> {
     late Tarea t1 = widget.tarea;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tarea ${widget.id}"),
+        title: Text("Tarea ${widget.id}".toUpperCase()),
       ),
       body: ListView(
         padding: const EdgeInsets.all(8),
         children: <Widget>[
           SizedBox(
             height: 50,
-            child: Center(child: Text(t1.nombre)),
+            child: Center(
+                child: Text(
+              t1.nombre.toUpperCase(),
+              textScaleFactor: 2,
+            )),
           ),
 
           Container(
@@ -44,14 +48,14 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                 Container(
                   child: const Center(
                       child: Text(
-                    "Fecha Inicio",
+                    "FECHA INICIO",
                   )),
                 ),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 20.0,
                   ),
-                  child: const Text("Fecha Fin"),
+                  child: const Text("FECHA FIN"),
                 ),
               ],
             ),
@@ -192,6 +196,40 @@ class _TareaDetalladaState extends State<TareaDetallada> {
               ],
             ),
           ),
+          Container(
+            margin: const EdgeInsets.only(
+              top: 10.0,
+            ),
+            child: Row(
+              children: <Widget>[
+                //para expandir por todo el width
+                Expanded(
+                  child: Text(
+                    'VIDEO',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'DESCRIPCIÓN POR PASOS',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'AUDIO',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    "BOTON DE TAREA HECHA",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
 
           //Contenedor descripción
           Container(
@@ -203,10 +241,10 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                     right: 20.0,
                     left: 20.0,
                   ),
-                  child: const Center(child: Text('Descripcion:')),
+                  child: const Center(child: Text('DESCRIPCIÓN:')),
                 ),
                 SizedBox(
-                  child: Center(child: Text(t1.descripcion)),
+                  child: Center(child: Text(t1.descripcion.toUpperCase())),
                 ),
               ],
             ),
@@ -223,11 +261,11 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                     left: 20.0,
                     bottom: 0.0,
                   ),
-                  child: Text("¿Terminada?"),
+                  child: Text("¿TERMINADA?"),
                 ),
                 if (t1.estado) ...[
                   SizedBox(
-                    child: Text("Si"),
+                    child: Text("SI"),
                   ),
                 ] else ...[
                   SizedBox(
@@ -250,7 +288,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                     left: 20.0,
                     top: 0.0,
                   ),
-                  child: Text("usuario asignado:"),
+                  child: Text("USUARIO ASIGNADO:"),
                 ),
                 SizedBox(
                   height: 50,
@@ -269,7 +307,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(2.0)),
                 )),
-            child: const Text("Editar"),
+            child: const Text("EDITAR"),
           ),
         ],
       ),
@@ -287,8 +325,12 @@ class _TareaDetalladaState extends State<TareaDetallada> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Enhorabuena"),
-            content: const Text("Muy bien has completado la tarea"),
+            title: const Text("ENHORABUENA"),
+            content: const Text("MUY BIEN HAS COMPLETADO LA TAREA"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
             actions: <Widget>[
               TextButton(
                 child: const Text(

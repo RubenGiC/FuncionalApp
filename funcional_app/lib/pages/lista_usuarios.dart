@@ -104,28 +104,24 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: idus,
-                  decoration: const InputDecoration(hintText: "Id"),
-                ),
-                TextField(
                   controller: nombre,
-                  decoration: const InputDecoration(hintText: "Nombre"),
+                  decoration: const InputDecoration(hintText: "NOMBRE"),
                 ),
                 TextField(
                   controller: apellidos,
-                  decoration: const InputDecoration(hintText: "Apellidos"),
+                  decoration: const InputDecoration(hintText: "APELLIDOS"),
                 ),
                 TextField(
                   controller: nombre_usuario,
-                  decoration: const InputDecoration(hintText: "Nombre_Usuario"),
+                  decoration: const InputDecoration(hintText: "NOMBRE USUARIO"),
                 ),
                 TextField(
                   controller: password,
-                  decoration: const InputDecoration(hintText: "Contraseña"),
+                  decoration: const InputDecoration(hintText: "CONTRASEÑA"),
                 ),
                 TextField(
                   controller: aula,
-                  decoration: const InputDecoration(hintText: "Aula"),
+                  decoration: const InputDecoration(hintText: "AULA"),
                 )
               ],
             ),

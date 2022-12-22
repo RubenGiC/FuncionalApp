@@ -28,10 +28,12 @@ class _ListaTareasState extends State<ListaTareas> {
   final usuario = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+        home: Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de tareas'),
+        title: const Text("LISTA DE TAREAS"),
       ),
+      backgroundColor: Colors.blue[200],
       body: FutureBuilder<List<Tarea>>(
         future: tareas,
         builder: (context, snap) {
@@ -39,43 +41,50 @@ class _ListaTareasState extends State<ListaTareas> {
           //si se han cargado se muestra la lista de usuarios
           if (snap.hasData) {
             return ListView.builder(
+
                 //Con el simbolo de exclamacion se dice que estamos seguro que no va a ser nulo
                 itemCount: snap.data!.length,
                 itemBuilder: (context, i) {
                   // Mostramos el nombre de cada usuario
                   return Column(
                     children: [
-                      ListTile(
-                          //Aqui vemos la imagen o lo que se one antes del texto
-                          leading: Text(
-                            snap.data![i].idta.toString(),
-                            textScaleFactor: 4,
-                          ),
-                          //Aqui le pongo el borde y le ajusto los parametros
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side:
-                                const BorderSide(width: 3, color: Colors.pink),
-                          ),
-                          title: Text(snap.data![i].nombre),
-                          subtitle: Text(snap.data![i].descripcion),
-                          //Aqui se pone lo que va despues del texto
-                          trailing: IconButton(
-                            icon: const Icon(Icons.arrow_forward_ios),
-                            onPressed: () {
-                              setState(() {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      //Llama a tarea_detalle.dart para mostrar la informacion
-                                      builder: (context) => TareaDetallada(
-                                        id: snap.data![i].idta,
-                                        tarea: snap.data![i],
-                                      ),
-                                    ));
-                              });
-                            },
-                          )),
+                      Material(
+                        elevation: 4.0,
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Color.fromARGB(255, 248, 246, 246),
+                        child: ListTile(
+                            //Aqui vemos la imagen o lo que se one antes del texto
+                            leading: Text(
+                              snap.data![i].idta.toString(),
+                              textScaleFactor: 4,
+                            ),
+                            //Aqui le pongo el borde y le ajusto los parametros
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: const BorderSide(
+                                  width: 3, color: Colors.pink),
+                            ),
+                            title: Text(snap.data![i].nombre.toUpperCase()),
+                            subtitle:
+                                Text(snap.data![i].descripcion.toUpperCase()),
+                            //Aqui se pone lo que va despues del texto
+                            trailing: IconButton(
+                              icon: const Icon(Icons.arrow_forward_ios),
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        //Llama a tarea_detalle.dart para mostrar la informacion
+                                        builder: (context) => TareaDetallada(
+                                          id: snap.data![i].idta,
+                                          tarea: snap.data![i],
+                                        ),
+                                      ));
+                                });
+                              },
+                            )),
+                      )
                     ],
                   );
                 });
@@ -92,7 +101,7 @@ class _ListaTareasState extends State<ListaTareas> {
         onPressed: showFormAlum,
         child: const Icon(Icons.add),
       ),
-    );
+    ));
   }
 
   //meetodo que llama al formulario de añadir un nuevo alumno
@@ -101,35 +110,31 @@ class _ListaTareasState extends State<ListaTareas> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Tareas"),
+            title: const Text("AGREGAR TAREA"),
             //Aqui vamos a poner el formulario
             content: Column(
               //Para que no ocupe todo el espacio disponible
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: idta,
-                  decoration: const InputDecoration(hintText: "Id"),
-                ),
-                TextField(
                   controller: nombre,
-                  decoration: const InputDecoration(hintText: "Nombre"),
+                  decoration: const InputDecoration(hintText: "NOMBRE"),
                 ),
                 TextField(
                   controller: descripcion,
-                  decoration: const InputDecoration(hintText: "Descripcion"),
+                  decoration: const InputDecoration(hintText: "DESCRIPCIÓN"),
                 ),
                 TextField(
                   controller: fecha_inicio,
-                  decoration: const InputDecoration(hintText: "Fecha Inicio"),
+                  decoration: const InputDecoration(hintText: "FECHA INICIO"),
                 ),
                 TextField(
                   controller: fecha_fin,
-                  decoration: const InputDecoration(hintText: "Fecha Fin"),
+                  decoration: const InputDecoration(hintText: "FECHA FIN"),
                 ),
                 TextField(
                   controller: usuario,
-                  decoration: const InputDecoration(hintText: "Usuario"),
+                  decoration: const InputDecoration(hintText: "USUARIO"),
                 )
               ],
             ),
