@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funcional_app/models/categoria.dart';
 import 'package:funcional_app/LoginEstandar.dart';
+import 'package:funcional_app/LoginPicto.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,9 +57,20 @@ class _PantallaInicioState extends State<PantallaInicio> {
                     ),
                     child: GestureDetector(
                       onTap: () {
+                        switch (Menu[index].id) {
+                          case 1:
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => loginPicto()));
+                            break;
+                          case 4:
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => login()));
+                            break;
+                        }
+
                         //print("click en "+Menu[index].nombre);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => login()));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
