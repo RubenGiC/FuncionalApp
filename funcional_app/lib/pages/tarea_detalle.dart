@@ -184,7 +184,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                                   //Llama a tarea_detalle.dart para mostrar la informacion
                                   builder: (context) => ListaTareas()));
                         });*/
-                        showForm(t1);
+                        completarTarea(t1);
                       },
                     ),
                   ),
@@ -276,12 +276,7 @@ class _TareaDetalladaState extends State<TareaDetallada> {
     );
   }
 
-  void CompletarTareas() async {
-    /**Crea el objeto que se envia y actualiza el estado de la tarea a completada*/
-
-    //Aqui quiero mostrar un dialogo y luego al aceptar llevarlo a la pagina de lista de tareas actualizando esta
-  }
-  void showForm(Tarea t1) async {
+  void completarTarea(Tarea t1) async {
     var tarea = {"estado": "true", "usuario": t1.usuario.toString()};
     final url = "http://127.0.0.1:8000/tareas/${t1.idta}/";
     await http.put(Uri.parse(url),

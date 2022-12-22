@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:funcional_app/main.dart';
 import 'package:funcional_app/main.dart';
+import 'package:funcional_app/pages/perfil_admin.dart';
 import 'package:funcional_app/principal.dart';
 import 'package:funcional_app/pages/perfil_usuario.dart';
+import 'package:http/http.dart' as http;
+
+import 'models/alumno.dart';
 
 class login extends StatefulWidget {
   @override
@@ -77,8 +83,13 @@ class _loginState extends State<login> {
     );
   }
 
-  void comprobarUsuario() {
-    //if()
-    Navigator.push(context, MaterialPageRoute(builder: (_) => perfilAlumno()));
+  void comprobarUsuario() async {
+    if ((usuario.text == "mariapr") && (contrasena.text == "mariapr") ||
+        (usuario.text == "juanpr") && (contrasena.text == "juanpr")) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => perfilAlumno()));
+    } else if ((usuario.text == "lucas") && (contrasena.text == "lucas")) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => perfilAdmin()));
+    }
   }
 }
