@@ -101,25 +101,12 @@ class _loginPictoState extends State<loginPicto> {
                   ]),
             ),
             Container(
-              width: 500,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-              child: ElevatedButton(
-                  child: Text("INICIO ",
-                      style: TextStyle(color: Colors.white, fontSize: 30)),
-                  onPressed: () {
-                    if (aux == contrasenia)
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => perfilAlumno()));
-                  }),
-            ),
-            Container(
               margin: EdgeInsets.only(top: 10),
               width: 500,
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(10)),
               child: ElevatedButton(
-                  child: Text("SESION",
+                  child: Text("INICIO SESION",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                   onPressed: () {
                     if (aux == contrasenia)
