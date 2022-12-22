@@ -167,7 +167,7 @@ class Opciones extends StatelessWidget {
               size: 70.0,
               color: stylo,
             ),
-            Text(title, style: new TextStyle(fontSize: 30.0))
+            Text(title.toUpperCase(), style: new TextStyle(fontSize: 30.0))
           ],
         )),
       ),

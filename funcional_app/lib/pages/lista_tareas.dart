@@ -30,7 +30,7 @@ class _ListaTareasState extends State<ListaTareas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de tareas'),
+        title: const Text("LISTA DE TAREAS"),
       ),
       body: FutureBuilder<List<Tarea>>(
         future: tareas,
@@ -57,8 +57,9 @@ class _ListaTareasState extends State<ListaTareas> {
                             side:
                                 const BorderSide(width: 3, color: Colors.pink),
                           ),
-                          title: Text(snap.data![i].nombre),
-                          subtitle: Text(snap.data![i].descripcion),
+                          title: Text(snap.data![i].nombre.toUpperCase()),
+                          subtitle:
+                              Text(snap.data![i].descripcion.toUpperCase()),
                           //Aqui se pone lo que va despues del texto
                           trailing: IconButton(
                             icon: const Icon(Icons.arrow_forward_ios),
@@ -101,35 +102,31 @@ class _ListaTareasState extends State<ListaTareas> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Tareas"),
+            title: const Text("AGREGAR TAREA"),
             //Aqui vamos a poner el formulario
             content: Column(
               //Para que no ocupe todo el espacio disponible
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: idta,
-                  decoration: const InputDecoration(hintText: "Id"),
-                ),
-                TextField(
                   controller: nombre,
-                  decoration: const InputDecoration(hintText: "Nombre"),
+                  decoration: const InputDecoration(hintText: "NOMBRE"),
                 ),
                 TextField(
                   controller: descripcion,
-                  decoration: const InputDecoration(hintText: "Descripcion"),
+                  decoration: const InputDecoration(hintText: "DESCRIPCIÓN"),
                 ),
                 TextField(
                   controller: fecha_inicio,
-                  decoration: const InputDecoration(hintText: "Fecha Inicio"),
+                  decoration: const InputDecoration(hintText: "FECHA INICIO"),
                 ),
                 TextField(
                   controller: fecha_fin,
-                  decoration: const InputDecoration(hintText: "Fecha Fin"),
+                  decoration: const InputDecoration(hintText: "FECHA FIN"),
                 ),
                 TextField(
                   controller: usuario,
-                  decoration: const InputDecoration(hintText: "Usuario"),
+                  decoration: const InputDecoration(hintText: "USUARIO"),
                 )
               ],
             ),

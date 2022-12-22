@@ -49,7 +49,8 @@ class _loginState extends State<login> {
               ),
               TextField(
                 controller: usuario,
-                decoration: InputDecoration(hintText: "Nombre usuario"),
+                decoration:
+                    InputDecoration(hintText: "Nombre usuario".toUpperCase()),
               ),
               SizedBox(
                 height: 20,
@@ -58,7 +59,7 @@ class _loginState extends State<login> {
                 controller: contrasena,
                 obscureText: true,
                 decoration: InputDecoration(
-                  hintText: "Contrasena",
+                  hintText: "Contrasena".toUpperCase(),
                 ),
               ),
               Container(
@@ -68,7 +69,7 @@ class _loginState extends State<login> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(10)),
                 child: ElevatedButton(
-                    child: Text("Inicio Sesion",
+                    child: Text("Inicio Sesion".toUpperCase(),
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     onPressed: () {
                       comprobarUsuario();

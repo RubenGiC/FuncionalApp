@@ -64,7 +64,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset("assets/" + Menu[index].foto, width: 100),
-                          Text(Menu[index].nombre),
+                          Text(Menu[index].nombre.toUpperCase()),
                         ],
                       ),
                     ));
