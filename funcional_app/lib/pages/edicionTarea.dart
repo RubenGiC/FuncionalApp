@@ -209,10 +209,33 @@ class _EdicionTarea extends State<EdicionTarea> {
                 });
               },
             ),*/
-
+            Container(
+              padding: const EdgeInsets.all(10),
+            ),
             //Boton para que vaya a editar
             TextButton(
               onPressed: () {
+                String titulo = '';
+                String fecha_inicio = '';
+                String fecha_fin = '';
+                String descripcion = '';
+
+                if (et_titulo.text != task.nombre) {
+                  titulo = et_titulo.text;
+                }
+                if (et_fini.text != task.fecha_inicio) {
+                  fecha_inicio = et_fini.text;
+                }
+                if (et_ffin.text != task.fecha_fin) {
+                  fecha_fin = et_ffin.text;
+                }
+                if (et_descrip.text != task.descripcion) {
+                  descripcion = et_descrip.text;
+                }
+
+                cambiarTarea(
+                    task, titulo, fecha_inicio, fecha_fin, descripcion, estado);
+
                 /*Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -246,25 +269,60 @@ class _EdicionTarea extends State<EdicionTarea> {
     return Colors.red;
   }
 
-  void getTarea(Tarea t1) async {
+  //Meotod que enviara la nueva contraseña
+  void cambiarTarea(Tarea t1, String titulo, String fecha_inicio,
+      String fecha_fin, String descripcion, bool estado) async {
+    //var tarea = {"estado": "true", "usuario": t1.usuario.toString()};
     final url = "http://127.0.0.1:8000/tareas/${t1.idta}/";
-    /**Lo convertira en una Uri */
-    final res = await http.get(Uri.parse(url));
-    var tarea = jsonDecode(res.body);
 
-    final tareaFin = Tarea(
-        idta: tarea["idta"],
-        nombre: tarea["nombre"],
-        descripcion: tarea["descripcion"],
-        fecha_inicio: tarea["fecha_inicio"],
-        fecha_fin: tarea["fecha_fin"],
-        estado: tarea["estado"],
-        usuario: tarea["usuario"],
-        corregido: tarea["corregido"]);
-    setState(() {
-      tarea = tareaFin;
-    });
-    //Par que los ultimos creados aparezcan los primeros
+    var lista = "";
+
+    if (titulo != '') {
+      lista = lista + "\"nombre\": \"${titulo}\",";
+    }
+    if (fecha_inicio != '') {
+      lista = lista + "\"fecha_inicio\": \"${fecha_inicio}\",";
+    }
+    if (fecha_fin != '') {
+      lista = lista + "\"fecha_fin\": \"${fecha_fin}\",";
+    }
+    if (descripcion != '') {
+      lista = lista + "\"descripcion\": \"${descripcion}\"";
+    }
+    print(lista);
+    print(lista.length);
+    if (lista.length > 0) {
+      if (lista[lista.length - 1] == ',') {
+        lista = lista.substring(0, lista.length - 2);
+      }
+      print(lista);
+      print(descripcion);
+      print("id: " + t1.idta.toString());
+
+      await http.put(Uri.parse(url),
+          headers: {"content-type": "application/json;charset=UTF-8"},
+          body: json.encode({"estado": estado, "descripcion": descripcion}));
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("AVISO"),
+              content: const Text("Has hecho modificaciones de la tarea"),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text(
+                    "ACEPTAR",
+                    style: TextStyle(color: Colors.pink),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    }
   }
 }
 
