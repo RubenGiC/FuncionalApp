@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:funcional_app/main.dart';
 import 'package:funcional_app/models/alumno.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:funcional_app/pages/lista_items.dart';
@@ -72,7 +73,7 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
               title: Text("CERRAR SESIOIN", style: new TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => login()));
+                    context, MaterialPageRoute(builder: (_) => MyApp()));
               },
             ),
           ],
@@ -83,12 +84,12 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            Opciones(
+            /*Opciones(
               title: "Mi perfil",
               icon: Icons.perm_identity,
               stylo: Colors.red,
               tipo: 0,
-            ),
+            ),*/
             Opciones(
               title: "Lista de Tareas",
               icon: Icons.library_books_sharp,
@@ -147,11 +148,9 @@ class Opciones extends StatelessWidget {
           switch (tipo) {
             case 1:
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    //Llama a tarea_detalle.dart para mostrar la informacion
-                    builder: (context) => ListaTareas(),
-                  ));
+                context,
+                MaterialPageRoute(builder: (context) => ListaTareas()),
+              );
               break;
             case 3:
               Navigator.push(

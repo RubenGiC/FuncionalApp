@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:funcional_app/models/tareas.dart';
+import 'package:funcional_app/pages/edicionTarea.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:http/http.dart' as http;
 
@@ -300,7 +301,17 @@ class _TareaDetalladaState extends State<TareaDetallada> {
 
           //Boton para que vaya a editar
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    //Llama a tarea_detalle.dart para mostrar la informacion
+                    builder: (context) => EdicionTarea(
+                      id: widget.id,
+                      tarea: widget.tarea,
+                    ),
+                  ));
+            },
             style: TextButton.styleFrom(
                 backgroundColor: Colors.pink,
                 foregroundColor: Colors.black,
