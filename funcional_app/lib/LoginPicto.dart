@@ -26,9 +26,8 @@ class _loginPictoState extends State<loginPicto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-          title: Text("IDENTIFICATE",
-              style: TextStyle(color: Colors.black, fontSize: 20)),
-          backgroundColor: Colors.white),
+        title: Text("IDENTIFICATE", style: TextStyle(fontSize: 20)),
+      ),
       backgroundColor: Colors.blue[200],
       body: Container(
         decoration: BoxDecoration(
