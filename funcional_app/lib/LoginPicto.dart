@@ -16,18 +16,19 @@ class _loginPictoState extends State<loginPicto> {
 
   final String estrella = 'a';
   final String circulo = 'b';
-  final String corazaon = 'c';
+  final String corazon = 'c';
   final String triangulo = 'd';
 
-  late String aux;
+  late String aux = "";
   final String contrasenia = 'abc';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text("IDENTIFICATE", style: TextStyle(fontSize: 20)),
-      ),
+          title: Text("IDENTIFICATE",
+              style: TextStyle(color: Colors.white, fontSize: 20)),
+          backgroundColor: Colors.blue),
       backgroundColor: Colors.blue[200],
       body: Container(
         decoration: BoxDecoration(
@@ -53,7 +54,10 @@ class _loginPictoState extends State<loginPicto> {
                   mainAxisSpacing: 10,
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: () => setState(() => flag1 = !flag1),
+                      onPressed: () {
+                        setState(() => flag1 = !flag1);
+                        aux += estrella;
+                      },
                       child: Image.asset(
                         "assets/estrella.png",
                         width: 200,
@@ -65,7 +69,10 @@ class _loginPictoState extends State<loginPicto> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => setState(() => flag2 = !flag2),
+                      onPressed: () {
+                        setState(() => flag2 = !flag2);
+                        aux += circulo;
+                      },
                       child: Image.asset(
                         "assets/circulo2.png",
                         width: 200,
@@ -76,7 +83,10 @@ class _loginPictoState extends State<loginPicto> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => setState(() => flag3 = !flag3),
+                      onPressed: () {
+                        setState(() => flag3 = !flag3);
+                        aux += corazon;
+                      },
                       child: Image.asset(
                         "assets/corazon2.png",
                         width: 200,
@@ -87,7 +97,10 @@ class _loginPictoState extends State<loginPicto> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => setState(() => (flag4 = !flag4)),
+                      onPressed: () {
+                        setState(() => flag4 = !flag4);
+                        aux += triangulo;
+                      },
                       child: Image.asset(
                         "assets/triangulo.png",
                         width: 200,
@@ -108,9 +121,8 @@ class _loginPictoState extends State<loginPicto> {
                   child: Text("INICIO SESION",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                   onPressed: () {
-                    // if (aux == contrasenia)
-                    //   Navigator.push(context,
-                    //       MaterialPageRoute(builder: (_) => perfilAlumno()));
+                    print(aux);
+                    aux = "";
                   }),
             ),
           ],

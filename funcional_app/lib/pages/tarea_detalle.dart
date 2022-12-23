@@ -8,6 +8,8 @@ import 'package:funcional_app/pages/edicionTarea.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:http/http.dart' as http;
 
+import 'multimedia.dart';
+
 class TareaDetallada extends StatefulWidget {
   final int id;
   final Tarea tarea;
@@ -138,6 +140,8 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                         size: 80,
                       ),
                       onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => multimedia()));
                         /*setState(() {
                           Navigator.push(
                               context,

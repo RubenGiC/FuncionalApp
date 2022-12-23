@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:funcional_app/models/alumno.dart';
-import 'package:funcional_app/pages/usuario_detalle.dart';
+import 'package:funcional_app/pages/alumno_detalle.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -88,9 +88,9 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => UsuarioDetalle(
+                                  builder: (context) => AlumnoDetalle(
                                     id: snap.data![i].idus,
-                                    usuario: snap.data![i],
+                                    alumno: snap.data![i],
                                   ),
                                 ),
                               );

@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:funcional_app/pages/lista_items.dart';
 import 'package:funcional_app/pages/lista_usuarios.dart';
+import 'package:funcional_app/pages/profesor_detalle.dart';
 import 'package:funcional_app/pages/tareas_completadas_admin.dart';
 
 import '../LoginEstandar.dart';
@@ -26,6 +27,7 @@ class _perfilAdminState extends State<perfilAdmin> {
         title: Text("          INICIO",
             style: TextStyle(
               fontSize: 30,
+              fontFamily: 'Escolar',
             )),
       ),
       backgroundColor: Colors.blue[200],
@@ -39,7 +41,7 @@ class _perfilAdminState extends State<perfilAdmin> {
               ),
               accountEmail: new Text("${p1.apellidos}"),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage("assets/estudiante.png"),
+                backgroundImage: AssetImage("assets/ninio.png"),
               ),
               decoration: new BoxDecoration(
                 color: Colors.pink[100],
@@ -53,8 +55,13 @@ class _perfilAdminState extends State<perfilAdmin> {
               leading: Icon(Icons.person),
               title: Text("MI PERFIL", style: new TextStyle(fontSize: 20)),
               onTap: () {
-                // change app state...
-                Navigator.pop(context); // close the drawer
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ProfesorDetalle(
+                              id: p1.idus,
+                              profesor: p1,
+                            )));
               },
             ),
             ListTile(
@@ -188,6 +195,17 @@ class Opciones extends StatelessWidget {
                   MaterialPageRoute(
                     //Llama a tarea_detalle.dart para mostrar la informacion
                     builder: (context) => CompletarTarea(),
+                  ));
+              break;
+            case 0:
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    //Llama a tarea_detalle.dart para mostrar la informacion
+                    builder: (context) => ProfesorDetalle(
+                      id: null,
+                      profesor: null,
+                    ),
                   ));
               break;
           }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:funcional_app/main.dart';
 import 'package:funcional_app/models/alumno.dart';
+import 'package:funcional_app/pages/alumno_detalle.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:funcional_app/pages/lista_items.dart';
 
@@ -53,8 +54,13 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
               leading: Icon(Icons.person),
               title: Text("MI PERFIL", style: new TextStyle(fontSize: 20)),
               onTap: () {
-                // change app state...
-                Navigator.pop(context); // close the drawer
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => AlumnoDetalle(
+                              alumno: a1,
+                              id: a1.idus,
+                            )));
               },
             ),
             ListTile(

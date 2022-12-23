@@ -26,7 +26,7 @@ class _ProfesorDetalleState extends State<ProfesorDetalle> {
 
   @override
   Widget build(BuildContext context) {
-    final alum = widget.profesor; //contiene la información del usuario
+    final p1 = widget.profesor; //contiene la información del usuario
     return Scaffold(
       appBar: AppBar(
         title: Text("MI PERFIL"), //titulo de la barra
@@ -55,7 +55,7 @@ class _ProfesorDetalleState extends State<ProfesorDetalle> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  " 'alum.nombre+ " " +alum.apellidos'",
+                  " ${p1.nombre} ${p1.apellidos}",
                   maxLines: 3,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -82,10 +82,10 @@ class _ProfesorDetalleState extends State<ProfesorDetalle> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Nickname:  alum.nombre_usuario, ",
+                    "Nickname:  ${p1.nombre_usuario} ",
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -94,12 +94,41 @@ class _ProfesorDetalleState extends State<ProfesorDetalle> {
                   ),
                 )),
           ),
+          //Contraseña
+          Container(
+            margin: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Container(
+                height: 70,
+                margin: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Contraseña:  ${p1.password} ",
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )),
+          ),
+          //Aula
         ],
       ),
       //boton flotante en el centro con lapiz
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          //showFormAlum(alum);
+          showFormAlum(p1);
         },
         elevation: 5,
         child: const Icon(Icons.edit),
@@ -156,7 +185,7 @@ class _ProfesorDetalleState extends State<ProfesorDetalle> {
     final url = "http://127.0.0.1:8000/profesores/${t1.idus}/";
     await http.put(Uri.parse(url),
         headers: {"content-type": "application/json;charset=UTF-8"},
-        body: json.encode({"password": nuevaPass.text}));
+        body: json.encode({"password": nuevaPass.text, "es_admin": true}));
     // ignore: use_build_context_synchronously
     showDialog(
         context: context,

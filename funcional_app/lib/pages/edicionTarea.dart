@@ -90,7 +90,6 @@ class _EdicionTarea extends State<EdicionTarea> {
 
                       et_fini.text =
                           "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}"; //set output date to TextField value.
-
                     } else {
                       print("Date is not selected");
                     }
@@ -133,7 +132,6 @@ class _EdicionTarea extends State<EdicionTarea> {
 
                       et_ffin.text =
                           "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}"; //set output date to TextField value.
-
                     } else {
                       print("Date is not selected");
                     }
@@ -301,7 +299,11 @@ class _EdicionTarea extends State<EdicionTarea> {
 
       await http.put(Uri.parse(url),
           headers: {"content-type": "application/json;charset=UTF-8"},
-          body: json.encode({"estado": estado, "descripcion": descripcion}));
+          body: json.encode({
+            "estado": estado,
+            "descripcion": descripcion,
+            "usuario": t1.usuario
+          }));
       // ignore: use_build_context_synchronously
       showDialog(
           context: context,

@@ -54,7 +54,7 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  " 'alum.nombre+ " " +alum.apellidos'",
+                  " ${alum.nombre} ${alum.apellidos}",
                   maxLines: 3,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -81,10 +81,93 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Nickname:  alum.nombre_usuario, ",
+                    "Nickname:  ${alum.nombre_usuario} ",
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )),
+          ),
+          //Contraseña
+          Container(
+            margin: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Container(
+                height: 70,
+                margin: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Contraseña:  ${alum.password} ",
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )),
+          ),
+          //Aula
+          Container(
+            margin: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Container(
+                height: 70,
+                margin: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Aula:  ${alum.aula} ",
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 30.0, left: 500.0, right: 500.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Container(
+                height: 70,
+                margin: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Para login pictogramas seguir la siguientes pautas:\n 'a para poner una estrella' ; 'b para un circulo'\n 'c para un corazon ; d para un triangulo'",
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -98,7 +181,7 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
       //boton flotante en el centro con lapiz
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          //showFormAlum(alum);
+          showFormAlum(alum);
         },
         elevation: 5,
         child: const Icon(Icons.edit),
@@ -130,7 +213,7 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
 
   Widget buildProfileImage() => CircleAvatar(
         radius: profileHeight / 2,
-        backgroundImage: AssetImage("assets/ninio.png"),
+        backgroundImage: AssetImage("assets/estudiante.png"),
       );
 
   Widget buildTop() {
@@ -151,7 +234,6 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
 
   //Meotod que enviara la nueva contraseña
   void cambiarPassword(Alumno t1) async {
-    //var tarea = {"estado": "true", "usuario": t1.usuario.toString()};
     final url = "http://127.0.0.1:8000/alumnos/${t1.idus}/";
     await http.put(Uri.parse(url),
         headers: {"content-type": "application/json;charset=UTF-8"},

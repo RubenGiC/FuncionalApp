@@ -39,10 +39,11 @@ class _PantallaInicioState extends State<PantallaInicio> {
     return Scaffold(
       appBar: AppBar(
         title: Text("TIPO DE INICIO DE SESION",
-            style: TextStyle(color: Colors.black, fontSize: 20)),
-        backgroundColor: Colors.white,
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontFamily: 'Escolar')),
+        backgroundColor: Colors.blue,
       ),
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Colors.blue[100],
       body: Container(
           child: GridView.builder(
               itemCount: Menu.length,
