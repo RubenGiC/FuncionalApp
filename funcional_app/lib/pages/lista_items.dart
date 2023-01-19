@@ -68,7 +68,10 @@ class _ListaItemsState extends State<ListaItems> {
                           Icons.add_circle,
                         ),
                         iconSize: 40,
-                        onPressed: () {},
+                        onPressed: () {
+                          sumarItem(snapshot.data![i]);
+                          items = getItems();
+                        },
                       ),
                     ),
                     Container(
@@ -78,7 +81,10 @@ class _ListaItemsState extends State<ListaItems> {
                       child: IconButton(
                         icon: const Icon(Icons.remove_circle),
                         iconSize: 40,
-                        onPressed: () {},
+                        onPressed: () {
+                          restarItem(snapshot.data![i]);
+                          items = getItems();
+                        },
                       ),
                     ),
                   ],
@@ -121,5 +127,20 @@ class _ListaItemsState extends State<ListaItems> {
     });
 
     return items.reversed.toList();
+  }
+
+  void sumarItem(Item i) async {
+    final url = "http://127.0.0.1:8000/items/${i.idit}/";
+    await http.put(Uri.parse(url),
+        headers: {"content-type": "application/json;charset=UTF-8"},
+        body: json.encode({"stock": i.stock + 1}));
+  }
+
+  void restarItem(Item i) async {
+    final url = "http://127.0.0.1:8000/items/${i.idit}/";
+    await http.put(Uri.parse(url),
+        headers: {"content-type": "application/json;charset=UTF-8"},
+        body: json.encode({"stock": i.stock - 1}));
+    items = getItems();
   }
 }

@@ -289,7 +289,7 @@ class _TareaCorregirState extends State<TareaCorregir> {
         builder: (context) {
           return AlertDialog(
             title: const Text("Tarea corregida"),
-            content: const Text("Falta introducir un texto"),
+            content: const Text(""),
             actions: <Widget>[
               TextButton(
                 child: const Text(

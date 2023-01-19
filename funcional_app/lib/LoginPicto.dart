@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:funcional_app/pages/perfil_usuario.dart';
+
+import 'models/alumno.dart';
 
 class loginPicto extends StatefulWidget {
   @override
@@ -122,6 +126,7 @@ class _loginPictoState extends State<loginPicto> {
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                   onPressed: () {
                     print(aux);
+                    getAlumnos(aux);
                     aux = "";
                   }),
             ),
@@ -130,7 +135,30 @@ class _loginPictoState extends State<loginPicto> {
       ),
     );
   }
+
+  Future<List<Alumno>> getAlumnos(String aux) async {
+    /**Lo convertira en una Uri */
+    final res = await http.get(Uri.parse("http://127.0.0.1:8000/alumnos/"));
+    final lista = List.from(jsonDecode(res.body));
+    var encontrado = false;
+    List<Alumno> usuarios = [];
+    lista.forEach((element) {
+      final Alumno alumno = Alumno.fromJson(element);
+      usuarios.add(alumno);
+      if ((aux == alumno.password)) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => PerfilAlumno(
+                      alumno: alumno,
+                    )));
+      }
+    });
+
+    return usuarios.reversed.toList();
+  }
 }
+
 
 /*
 

@@ -4,14 +4,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:funcional_app/pages/tarea_detalle.dart';
 
-class ListaTareas extends StatefulWidget {
-  const ListaTareas({super.key});
+class ListaTareasUser extends StatefulWidget {
+  const ListaTareasUser({super.key});
 
   @override
-  State<ListaTareas> createState() => _ListaTareasState();
+  State<ListaTareasUser> createState() => _ListaTareasUserState();
 }
 
-class _ListaTareasState extends State<ListaTareas> {
+class _ListaTareasUserState extends State<ListaTareasUser> {
   //http://10.0.2.2:8000/tareas/
   //http://127.0.0.1:8000/tareas/
   final urlTareas = Uri.parse("http://127.0.0.1:8000/tareas/");
@@ -114,64 +114,10 @@ class _ListaTareasState extends State<ListaTareas> {
             },
           ),
           //Vamos a crear un boton para añadir nuevos usuarios
-          floatingActionButton: FloatingActionButton(
-            //Cuando se presione
-            onPressed: showFormAlum,
-            child: const Icon(Icons.add),
-          ),
         ));
   }
 
   //meetodo que llama al formulario de añadir un nuevo alumno
-  void showFormAlum() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("AGREGAR TAREA"),
-            //Aqui vamos a poner el formulario
-            content: Column(
-              //Para que no ocupe todo el espacio disponible
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: nombre,
-                  decoration: const InputDecoration(hintText: "NOMBRE"),
-                ),
-                TextField(
-                  controller: descripcion,
-                  decoration: const InputDecoration(hintText: "DESCRIPCIÓN"),
-                ),
-                TextField(
-                  controller: fecha_inicio,
-                  decoration: const InputDecoration(hintText: "FECHA INICIO"),
-                ),
-                TextField(
-                  controller: fecha_fin,
-                  decoration: const InputDecoration(hintText: "FECHA FIN"),
-                ),
-                TextField(
-                  controller: usuario,
-                  decoration: const InputDecoration(hintText: "USUARIO"),
-                )
-              ],
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Cancelar")),
-              TextButton(
-                  onPressed: () {
-                    saveTareas();
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Guardar"))
-            ],
-          );
-        });
-  }
 
   /// Este metodo se eejcuta cuando la aplicacion inicie
   @override
@@ -197,37 +143,4 @@ class _ListaTareasState extends State<ListaTareas> {
   }
 
   //Hace el post de un nuevo alumno
-  void saveTareas() async {
-    /**Crea el objeto que se envia*/
-
-    final tarea = {
-      "idta": idta.text,
-      "nombre": nombre.text,
-      "descripcion": descripcion.text,
-      "fecha_inicio": fecha_inicio.text.substring(6) +
-          '-' +
-          fecha_inicio.text.substring(3, 5) +
-          '-' +
-          fecha_inicio.text.substring(0, 2),
-      "fecha_fin": fecha_fin.text.substring(6) +
-          '-' +
-          fecha_fin.text.substring(3, 5) +
-          '-' +
-          fecha_fin.text.substring(0, 2),
-      "estado": estado,
-      "usuario": usuario.text
-    };
-
-    await http.post(urlTareas, headers: headers, body: jsonEncode(tarea));
-    nombre.clear();
-    descripcion.clear();
-    fecha_inicio.clear();
-    fecha_fin.clear();
-    idta.clear();
-    usuario.clear;
-    //para volver a actualizar los usuarios y que se actualice la interfaz
-    setState(() {
-      tareas = getTareas();
-    });
-  }
 }

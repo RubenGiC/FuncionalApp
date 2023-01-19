@@ -52,7 +52,10 @@ class _perfilAdminState extends State<perfilAdmin> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.person),
+              leading: Icon(
+                Icons.person,
+                color: Colors.green,
+              ),
               title: Text("MI PERFIL", style: new TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.push(
@@ -91,12 +94,6 @@ class _perfilAdminState extends State<perfilAdmin> {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            Opciones(
-              title: "Mi perfil",
-              icon: Icons.perm_identity,
-              stylo: Colors.red,
-              tipo: 0,
-            ),
             Opciones(
               title: "Lista de Usuarios",
               icon: Icons.notifications_active_rounded,
@@ -195,17 +192,6 @@ class Opciones extends StatelessWidget {
                   MaterialPageRoute(
                     //Llama a tarea_detalle.dart para mostrar la informacion
                     builder: (context) => CompletarTarea(),
-                  ));
-              break;
-            case 0:
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    //Llama a tarea_detalle.dart para mostrar la informacion
-                    builder: (context) => ProfesorDetalle(
-                      id: null,
-                      profesor: null,
-                    ),
                   ));
               break;
           }

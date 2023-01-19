@@ -4,8 +4,10 @@ import 'package:flutter/rendering.dart';
 import 'package:funcional_app/main.dart';
 import 'package:funcional_app/models/alumno.dart';
 import 'package:funcional_app/pages/alumno_detalle.dart';
+import 'package:funcional_app/pages/historial_tareas.dart';
 import 'package:funcional_app/pages/lista_tareas.dart';
 import 'package:funcional_app/pages/lista_items.dart';
+import 'package:funcional_app/pages/lista_tareas_usuario.dart';
 
 import '../LoginEstandar.dart';
 
@@ -51,7 +53,10 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.person),
+              leading: Icon(
+                Icons.person,
+                color: Colors.green,
+              ),
               title: Text("MI PERFIL", style: new TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.push(
@@ -101,30 +106,35 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
               icon: Icons.library_books_sharp,
               stylo: Colors.orange,
               tipo: 1,
+              alumno: widget.alumno,
             ),
             Opciones(
               title: "HISTORIAL DE TAREAS",
               icon: Icons.check_circle,
               stylo: Colors.green,
               tipo: 2,
+              alumno: widget.alumno,
             ),
             Opciones(
               title: "Notificaciones",
               icon: Icons.notifications_active_rounded,
               stylo: Colors.grey,
               tipo: 4,
+              alumno: widget.alumno,
             ),
             Opciones(
               title: "Chat",
               icon: Icons.textsms,
               stylo: Colors.grey,
               tipo: 5,
+              alumno: widget.alumno,
             ),
             Opciones(
               title: "Menu",
               icon: Icons.flatware,
               stylo: Colors.grey,
               tipo: 6,
+              alumno: widget.alumno,
             ),
           ],
         ),
@@ -134,11 +144,13 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
 }
 
 class Opciones extends StatelessWidget {
+  final Alumno alumno;
   Opciones({
     this.title = "tt",
     this.icon = Icons.home,
     this.stylo: Colors.deepOrange,
     this.tipo = 0,
+    required this.alumno,
   });
 
   final String title;
@@ -155,15 +167,17 @@ class Opciones extends StatelessWidget {
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ListaTareas()),
+                MaterialPageRoute(builder: (context) => ListaTareasUser()),
               );
               break;
-            case 3:
+            case 2:
               Navigator.push(
                   context,
                   MaterialPageRoute(
                     //Llama a tarea_detalle.dart para mostrar la informacion
-                    builder: (context) => ListaItems(),
+                    builder: (context) => HistorialTarea(
+                      id: alumno.idus,
+                    ),
                   ));
               break;
           }
