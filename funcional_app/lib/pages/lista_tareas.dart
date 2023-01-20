@@ -201,7 +201,6 @@ class _ListaTareasState extends State<ListaTareas> {
     /**Crea el objeto que se envia*/
 
     final tarea = {
-      "idta": idta.text,
       "nombre": nombre.text,
       "descripcion": descripcion.text,
       "fecha_inicio": fecha_inicio.text.substring(6) +
@@ -215,8 +214,11 @@ class _ListaTareasState extends State<ListaTareas> {
           '-' +
           fecha_fin.text.substring(0, 2),
       "estado": estado,
+      "corregido": false,
       "usuario": usuario.text
     };
+
+    print(tarea);
 
     await http.post(urlTareas, headers: headers, body: jsonEncode(tarea));
     nombre.clear();
