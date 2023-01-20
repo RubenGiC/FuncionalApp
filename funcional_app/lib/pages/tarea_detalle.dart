@@ -21,12 +21,12 @@ class TareaDetallada extends StatefulWidget {
 
 class _TareaDetalladaState extends State<TareaDetallada> {
   final headers = {"content-type": "application/json;charset=UTF-8"};
+  late Tarea t1 = widget.tarea;
   @override
   Widget build(BuildContext context) {
-    late Tarea t1 = widget.tarea;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tarea ${widget.id}".toUpperCase()),
+        title: Text("Tarea ${t1.idta}".toUpperCase()),
       ),
       body: ListView(
         padding: const EdgeInsets.all(8),
@@ -305,8 +305,8 @@ class _TareaDetalladaState extends State<TareaDetallada> {
 
           //Boton para que vaya a editar
           TextButton(
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     //Llama a tarea_detalle.dart para mostrar la informacion
@@ -315,6 +315,23 @@ class _TareaDetalladaState extends State<TareaDetallada> {
                       tarea: widget.tarea,
                     ),
                   ));
+
+              setState(() {
+                print('entraaa------------------------->');
+                _refreshData();
+              });*/
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    //Llama a tarea_detalle.dart para mostrar la informacion
+                    builder: (context) => EdicionTarea(
+                      id: t1.idta,
+                      tarea: t1,
+                    ),
+                  )).then((_) {
+                getTarea(t1);
+              });
             },
             style: TextButton.styleFrom(
                 backgroundColor: Colors.pink,
@@ -363,11 +380,13 @@ class _TareaDetalladaState extends State<TareaDetallada> {
         });
   }
 
-  void getTarea(Tarea t1) async {
-    final url = "http://127.0.0.1:8000/tareas/${t1.idta}/";
+  void getTarea(Tarea t) async {
+    final url = "http://127.0.0.1:8000/tareas/${t.idta}/";
     /**Lo convertira en una Uri */
     final res = await http.get(Uri.parse(url));
     var tarea = jsonDecode(res.body);
+
+    print(tarea["descripcion"]);
 
     final tareaFin = Tarea(
         idta: tarea["idta"],
@@ -380,6 +399,8 @@ class _TareaDetalladaState extends State<TareaDetallada> {
         corregido: tarea["corregido"]);
     setState(() {
       tarea = tareaFin;
+      t1 = tarea;
+      //print(t1.nombre);
     });
     //Par que los ultimos creados aparezcan los primeros
   }

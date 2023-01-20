@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funcional_app/main.dart';
 import 'package:funcional_app/models/tareas.dart';
+import 'package:funcional_app/pages/tarea_detalle.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -8,7 +9,7 @@ class EdicionTarea extends StatefulWidget {
   final Tarea tarea;
   final int id;
 
-  const EdicionTarea({super.key, required this.id, required this.tarea});
+  const EdicionTarea({required this.id, required this.tarea});
 
   @override
   State<EdicionTarea> createState() => _EdicionTarea();
@@ -294,10 +295,12 @@ class _EdicionTarea extends State<EdicionTarea> {
         lista = lista.substring(0, lista.length - 2);
       }*/
       print(lista);
-      print(descripcion);
-      print("id: " + t1.idta.toString());
+      //print(descripcion);
+      //print("id: " + t1.idta.toString());
       lista =
           "{" + lista + "\"estado\": ${t1.estado}, \"usuario\": ${t1.usuario}}";
+
+      print(lista);
 
       await http.put(Uri.parse(url),
           headers: {"content-type": "application/json;charset=UTF-8"},
@@ -320,12 +323,24 @@ class _EdicionTarea extends State<EdicionTarea> {
                     style: TextStyle(color: Colors.pink),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(true);
+
+                    /*Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          //Llama a tarea_detalle.dart para mostrar la informacion
+                          builder: (context) => TareaDetallada(
+                            id: t1.idta,
+                            tarea: t1,
+                          ),
+                        ));*/
                   },
                 )
               ],
             );
           });
+
+      Navigator.of(context).pop(true);
     }
   }
 }
