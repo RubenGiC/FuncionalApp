@@ -285,17 +285,19 @@ class _EdicionTarea extends State<EdicionTarea> {
       lista = lista + "\"fecha_fin\": \"${fecha_fin}\",";
     }
     if (descripcion != '') {
-      lista = lista + "\"descripcion\": \"${descripcion}\"";
+      lista = lista + "\"descripcion\": \"${descripcion}\",";
     }
     print(lista);
     print(lista.length);
     if (lista.length > 0) {
-      if (lista[lista.length - 1] == ',') {
+      /*if (lista[lista.length - 1] == ',') {
         lista = lista.substring(0, lista.length - 2);
-      }
+      }*/
       print(lista);
       print(descripcion);
       print("id: " + t1.idta.toString());
+      lista =
+          "{" + lista + "\"estado\": ${t1.estado}, \"usuario\": ${t1.usuario}}";
 
       await http.put(Uri.parse(url),
           headers: {"content-type": "application/json;charset=UTF-8"},

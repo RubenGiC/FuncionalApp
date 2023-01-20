@@ -17,6 +17,7 @@ class _ListaItemsState extends State<ListaItems> {
   final headers = {"content-type": "application/json;charset=UTF-8"};
   //lista de items
   late Future<List<Item>> items;
+  List<Item> stock = <Item>[];
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,8 @@ class _ListaItemsState extends State<ListaItems> {
         future: items,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            stock = snapshot.data!;
+
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: ((context, i) {
@@ -42,7 +45,7 @@ class _ListaItemsState extends State<ListaItems> {
                         right: 10.0,
                       ),
                       child: Text(
-                        snapshot.data![i].nombre.toString(),
+                        stock[i].nombre.toString(),
                         maxLines: 3,
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -58,7 +61,7 @@ class _ListaItemsState extends State<ListaItems> {
                         right: 10.0,
                       ),
                       child: Text(
-                        snapshot.data![i].stock.toString(),
+                        stock[i].stock.toString(),
                         textScaleFactor: 1.5,
                       ),
                     ),
@@ -70,7 +73,10 @@ class _ListaItemsState extends State<ListaItems> {
                         iconSize: 40,
                         onPressed: () {
                           sumarItem(snapshot.data![i]);
-                          items = getItems();
+
+                          setState(() {
+                            stock[i].stock = stock[i].stock + 1;
+                          });
                         },
                       ),
                     ),
@@ -83,7 +89,10 @@ class _ListaItemsState extends State<ListaItems> {
                         iconSize: 40,
                         onPressed: () {
                           restarItem(snapshot.data![i]);
-                          items = getItems();
+
+                          setState(() {
+                            stock[i].stock = stock[i].stock - 1;
+                          });
                         },
                       ),
                     ),
@@ -126,6 +135,8 @@ class _ListaItemsState extends State<ListaItems> {
       items.add(elem); //lo añado a la lista de items
     });
 
+    stock = items;
+
     return items.reversed.toList();
   }
 
@@ -141,6 +152,6 @@ class _ListaItemsState extends State<ListaItems> {
     await http.put(Uri.parse(url),
         headers: {"content-type": "application/json;charset=UTF-8"},
         body: json.encode({"stock": i.stock - 1}));
-    items = getItems();
+    //items = getItems();
   }
 }
