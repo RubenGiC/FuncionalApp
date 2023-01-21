@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:funcional_app/models/tareas.dart';
+import 'package:funcional_app/pages/tarea_detalle_usuario.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:funcional_app/pages/tarea_detalle.dart';
 
 class ListaTareasUser extends StatefulWidget {
   const ListaTareasUser({super.key});
@@ -94,7 +94,7 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
                                           MaterialPageRoute(
                                             //Llama a tarea_detalle.dart para mostrar la informacion
                                             builder: (context) =>
-                                                TareaDetallada(
+                                                TareaDetalladaUsuario(
                                               id: snap.data![i].idta,
                                               tarea: snap.data![i],
                                             ),
