@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funcional_app/models/tareas.dart';
+import 'package:funcional_app/pages/tarea_detalle.dart';
 import 'package:funcional_app/pages/tarea_detalle_usuario.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -18,6 +19,7 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
 
   final headers = {"content-type": "application/json;charset=UTF-8"};
   late Future<List<Tarea>> tareas;
+  List<Tarea> lista_tareas = [];
   //controlador para el formulario
   final idta = TextEditingController();
   final nombre = TextEditingController();
@@ -57,15 +59,20 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
                     itemBuilder: (context, i) {
                       var icono = Icons.task;
 
-                      if (snap.data![i].nombre.toLowerCase().contains('menu')) {
+                      //dependiendo de las palabras clave cambiara el icono
+                      if (lista_tareas[i]
+                          .nombre
+                          .toLowerCase()
+                          .contains('menu')) {
                         icono = Icons.menu_book;
-                      } else if (snap.data![i].nombre
+                      } else if (lista_tareas[i]
+                          .nombre
                           .toLowerCase()
                           .contains('ventanas')) {
                         icono = Icons.window;
                       }
 
-                      // Mostramos el nombre de cada usuario
+                      // Mostramos las tareas
                       return Column(
                         children: [
                           Material(
@@ -81,13 +88,30 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
                                   side: const BorderSide(
                                       width: 3, color: Colors.pink),
                                 ),
-                                title: Text(snap.data![i].nombre.toUpperCase()),
+                                title:
+                                    Text(lista_tareas[i].nombre.toUpperCase()),
                                 subtitle: Text(
-                                    snap.data![i].descripcion.toUpperCase()),
+                                    lista_tareas[i].descripcion.toUpperCase()),
                                 //Aqui se pone lo que va despues del texto
                                 trailing: IconButton(
                                   icon: const Icon(Icons.arrow_forward_ios),
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          //Llama a tarea_detalle.dart para mostrar la informacion
+                                          builder: (context) =>
+                                              TareaDetalladaUsuario(
+                                            id: lista_tareas[i].idta,
+                                            tarea: lista_tareas[i],
+                                          ),
+                                        )).then((_) {
+                                      setState(() {
+                                        tareas = getTareas();
+                                      });
+                                    });
+                                  },
+                                  /*onPressed: () {
                                     setState(() {
                                       Navigator.push(
                                           context,
@@ -100,7 +124,7 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
                                             ),
                                           ));
                                     });
-                                  },
+                                  },*/
                                 )),
                           )
                         ],
@@ -138,6 +162,9 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
         tareas.add(alumno);
       }
     });
+
+    lista_tareas = tareas.reversed.toList();
+
     //Para que los ultimos creados aparezcan los primeros
     return tareas.reversed.toList();
   }

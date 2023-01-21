@@ -61,7 +61,22 @@ class _CompletarTareaState extends State<CompletarTarea> {
                           //Aqui se pone lo que va despues del texto
                           trailing: IconButton(
                             icon: const Icon(Icons.arrow_forward_ios),
-                            onPressed: () {
+                            onPressed: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    //Llama a tarea_detalle.dart para mostrar la informacion
+                                    builder: (context) => TareaCorregir(
+                                      id: snap.data![i].idta,
+                                      tarea: snap.data![i],
+                                    ),
+                                  )).then((_) {
+                                setState(() {
+                                  tareas = getTareas();
+                                });
+                              });
+                            },
+                            /*onPressed: () {
                               setState(() {
                                 Navigator.push(
                                     context,
@@ -73,7 +88,7 @@ class _CompletarTareaState extends State<CompletarTarea> {
                                       ),
                                     ));
                               });
-                            },
+                            },*/
                           )),
                     ],
                   );

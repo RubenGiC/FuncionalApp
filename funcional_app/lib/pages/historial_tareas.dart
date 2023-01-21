@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funcional_app/models/alumno.dart';
 import 'package:funcional_app/models/tareas.dart';
 import 'package:funcional_app/pages/tareas_corregir.dart';
+import 'package:funcional_app/pages/tareas_hechas.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -70,7 +71,7 @@ class _HistorialTareaState extends State<HistorialTarea> {
                                     context,
                                     MaterialPageRoute(
                                       //Llama a tarea_detalle.dart para mostrar la informacion
-                                      builder: (context) => TareaCorregir(
+                                      builder: (context) => TareasHechas(
                                         id: snap.data![i].idta,
                                         tarea: snap.data![i],
                                       ),

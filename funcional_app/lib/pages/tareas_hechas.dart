@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:funcional_app/models/tareas.dart';
 import 'package:http/http.dart' as http;
 
-class TareaCorregir extends StatefulWidget {
+class TareasHechas extends StatefulWidget {
   final int id;
   final Tarea tarea;
-  const TareaCorregir({super.key, required this.id, required this.tarea});
+  const TareasHechas({super.key, required this.id, required this.tarea});
 
   @override
-  State<TareaCorregir> createState() => _TareaCorregirState();
+  State<TareasHechas> createState() => _TareasHechasState();
 }
 
-class _TareaCorregirState extends State<TareaCorregir> {
+class _TareasHechasState extends State<TareasHechas> {
   final headers = {"content-type": "application/json;charset=UTF-8"};
   @override
   Widget build(BuildContext context) {
@@ -257,18 +257,6 @@ class _TareaCorregirState extends State<TareaCorregir> {
               ],
             ),
           ),
-
-          //Boton para que vaya a editar
-          /*TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-                backgroundColor: Colors.pink,
-                foregroundColor: Colors.black,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                )),
-            child: const Text("Editar"),
-          ),*/
         ],
       ),
     );
