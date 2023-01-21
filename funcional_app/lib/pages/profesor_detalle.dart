@@ -237,6 +237,11 @@ class _ProfesorDetalleState extends State<ProfesorDetalle> {
                   onPressed: () {
                     cambiarPassword(alum);
                     Navigator.of(context).pop();
+
+                    setState(() {
+                      //cambia el password de forma local
+                      alum.password = nuevaPass.text;
+                    });
                   },
                   child: const Text("Cambiar"))
             ],

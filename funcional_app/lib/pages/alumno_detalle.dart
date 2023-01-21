@@ -22,10 +22,11 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
 
   final double coverHeight = 280;
   final double profileHeight = 144;
+  late Alumno alum;
 
   @override
   Widget build(BuildContext context) {
-    final alum = widget.alumno; //contiene la información del usuario
+    alum = widget.alumno; //contiene la información del usuario
     return Scaffold(
       appBar: AppBar(
         title: Text("MI PERFIL"), //titulo de la barra
@@ -182,6 +183,7 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
           showFormAlum(alum);
+          alum.password = "hola";
         },
         elevation: 5,
         child: const Icon(Icons.edit),
@@ -238,6 +240,9 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
     await http.put(Uri.parse(url),
         headers: {"content-type": "application/json;charset=UTF-8"},
         body: json.encode({"password": nuevaPass.text}));
+
+    //cambia el password de forma local
+    alum.password = nuevaPass.text;
     // ignore: use_build_context_synchronously
     showDialog(
         context: context,
@@ -286,9 +291,14 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
                   },
                   child: const Text("Cancelar")),
               TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     cambiarPassword(alum);
                     Navigator.of(context).pop();
+
+                    setState(() {
+                      //cambia el password de forma local
+                      alum.password = nuevaPass.text;
+                    });
                   },
                   child: const Text("Cambiar"))
             ],
