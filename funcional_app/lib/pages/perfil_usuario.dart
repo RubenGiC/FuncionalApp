@@ -81,7 +81,7 @@ class _PerfilAlumnoState extends State<PerfilAlumno> {
                 Icons.outbond_outlined,
                 color: Colors.red,
               ),
-              title: Text("CERRAR SESIOIN", style: new TextStyle(fontSize: 20)),
+              title: Text("CERRAR SESION", style: new TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => MyApp()));
@@ -167,7 +167,10 @@ class Opciones extends StatelessWidget {
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ListaTareasUser()),
+                MaterialPageRoute(
+                    builder: (context) => ListaTareasUser(
+                          alumno: alumno,
+                        )),
               );
               break;
             case 2:

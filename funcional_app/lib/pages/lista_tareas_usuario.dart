@@ -5,8 +5,11 @@ import 'package:funcional_app/pages/tarea_detalle_usuario.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../models/alumno.dart';
+
 class ListaTareasUser extends StatefulWidget {
-  const ListaTareasUser({super.key});
+  final Alumno alumno;
+  const ListaTareasUser({super.key, required this.alumno});
 
   @override
   State<ListaTareasUser> createState() => _ListaTareasUserState();
@@ -30,6 +33,7 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
   final usuario = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    late Alumno a1 = widget.alumno;
     return MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -107,7 +111,7 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
                                           ),
                                         )).then((_) {
                                       setState(() {
-                                        tareas = getTareas();
+                                        tareas = getTareas(a1);
                                       });
                                     });
                                   },
@@ -147,18 +151,18 @@ class _ListaTareasUserState extends State<ListaTareasUser> {
   @override
   void initState() {
     super.initState();
-    tareas = getTareas();
+    tareas = getTareas(widget.alumno);
   }
 
   /* Hace el get de alumnos el metodo que devolvera los alumnos*/
-  Future<List<Tarea>> getTareas() async {
+  Future<List<Tarea>> getTareas(Alumno a1) async {
     /**Lo convertira en una Uri */
     final res = await http.get(urlTareas);
     final lista = List.from(jsonDecode(res.body));
     List<Tarea> tareas = [];
     lista.forEach((element) {
       final Tarea alumno = Tarea.fromJson(element);
-      if ((alumno.estado == false)) {
+      if ((alumno.estado == false) && (alumno.usuario == a1.idus)) {
         tareas.add(alumno);
       }
     });

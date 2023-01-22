@@ -8,6 +8,7 @@ import 'package:funcional_app/pages/profesor_detalle.dart';
 import 'package:funcional_app/pages/tareas_completadas_admin.dart';
 
 import '../LoginEstandar.dart';
+import '../main.dart';
 import '../models/profesor.dart';
 
 class perfilAdmin extends StatefulWidget {
@@ -83,7 +84,7 @@ class _perfilAdminState extends State<perfilAdmin> {
               title: Text("SALIR", style: new TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => login()));
+                    context, MaterialPageRoute(builder: (_) => MyApp()));
               },
             ),
           ],

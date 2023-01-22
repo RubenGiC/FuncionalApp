@@ -307,7 +307,7 @@ class _EdicionTarea extends State<EdicionTarea> {
           body: json.encode({
             "nombre": titulo,
             "estado": estado,
-            "descripcion": descripcion,
+            "descripcion": descripcion.toString(),
             "usuario": t1.usuario
           }));
       // ignore: use_build_context_synchronously
