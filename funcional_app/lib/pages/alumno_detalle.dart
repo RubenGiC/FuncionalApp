@@ -40,7 +40,33 @@ class _UsuarioDetalleState extends State<AlumnoDetalle> {
           buildTop(),
 
           //Contenedor por cada dato del alumno
-
+          Container(
+            margin: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Container(
+                height: 70,
+                margin: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Id:  ${alum.idus} ",
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                )),
+          ),
           //Nombre y apellidos
           Container(
             margin: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),

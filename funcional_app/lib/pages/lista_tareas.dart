@@ -240,9 +240,9 @@ class _ListaTareasState extends State<ListaTareas> {
           fecha_fin.text.substring(3, 5) +
           '-' +
           fecha_fin.text.substring(0, 2),
-      "estado": estado,
+      "estado": false,
+      "usuario": usuario.text,
       "corregido": false,
-      "usuario": usuario.text
     };
 
     print(tarea);

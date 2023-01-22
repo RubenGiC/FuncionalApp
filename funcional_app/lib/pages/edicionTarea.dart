@@ -288,7 +288,7 @@ class _EdicionTarea extends State<EdicionTarea> {
     if (descripcion != '') {
       lista = lista + "\"descripcion\": \"${descripcion}\",";
     }
-    print(lista);
+    print(fecha_inicio);
     print(lista.length);
     if (lista.length > 0) {
       /*if (lista[lista.length - 1] == ',') {
@@ -305,6 +305,7 @@ class _EdicionTarea extends State<EdicionTarea> {
       await http.put(Uri.parse(url),
           headers: {"content-type": "application/json;charset=UTF-8"},
           body: json.encode({
+            "nombre": titulo,
             "estado": estado,
             "descripcion": descripcion,
             "usuario": t1.usuario
